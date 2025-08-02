@@ -4,7 +4,7 @@ import click
 HOST = "127.0.0.1"  # Standard loopback interface address (localhost)
 PORT = 65432  # Port to listen on (non-privileged ports are > 1023)
 
-MESSAGE = "Hello from pingport, running on host {h} at port {p}"
+MESSAGE = "Hello from pingport, running on host {h} at port {p}\n"
 
 
 # TODO: add TCP/UDP flag
@@ -20,5 +20,4 @@ def start_server(host: str, port: int) -> None:
         conn, addr = s.accept()
         with conn:
             print(f"Connected by {addr}")
-            while True:
-                conn.sendall(MESSAGE.format(h=host, p=port))
+            conn.sendall(MESSAGE.format(h=host, p=port).encode("utf8"))
